@@ -70,8 +70,7 @@ class _MessagePageState extends State<MessagePage> {
             }
           },
           child: ListView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: <Widget>[
               FakeSearchBar(),
               ...List.generate(20, (index) {

@@ -56,26 +56,59 @@ class _MessageItemState extends State<MessageItem> {
   }
 
   double _tapDownPostion;
+  double _speed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Listener(
+        // onPointerDown: (e) {
+        //   _tapDownPostion = e.position.dx;
+        // },
+        // onPointerUp: (e) {
+        //   double offset = e.position.dx - _tapDownPostion;
+
+        //   if (offset > 0.0 && _controller.offset != 0.0) {
+        //     // 在最左端时，向右滑无效
+        //     // 向右滑
+        //     offset > 60.0 ? _filpToRight() : _filpToLeft();
+        //   } else if (offset < 0.0 &&
+        //       _controller.offset != buttons.length * _buttonWidth) {
+        //     // 在最右端时，向左滑无效
+        //     // 向左滑
+        //     offset > -60.0 ? _filpToRight() : _filpToLeft();
+        //   }
+        // },
         onPointerDown: (e) {
+          _speed = .0;
           _tapDownPostion = e.position.dx;
         },
+        onPointerMove: (e) {
+          _speed = e.delta.dx;
+        },
         onPointerUp: (e) {
+          print(_speed);
           double offset = e.position.dx - _tapDownPostion;
-
-          if (offset > 0.0 && _controller.offset != 0.0) {
-            // 在最左端时，向右滑无效
-            // 向右滑
-            offset > 60.0 ? _filpToRight() : _filpToLeft();
-          } else if (offset < 0.0 &&
+          /**
+           * 速度较大时直接移动到对应端，速度较小时根据滑动的位移判断移动到哪边。
+           */
+          if (_speed > 3.0 && _controller.offset != 0.0) {
+            //
+            _filpToRight();
+          } else if (_speed < -3.0 &&
               _controller.offset != buttons.length * _buttonWidth) {
-            // 在最右端时，向左滑无效
-            // 向左滑
-            offset > -60.0 ? _filpToRight() : _filpToLeft();
+            _filpToLeft();
+          } else {
+            if (offset > 0.0 && _controller.offset != 0.0) {
+              // 在最左端时，向右滑无效
+              // 向右滑
+              offset > 60.0 ? _filpToRight() : _filpToLeft();
+            } else if (offset < 0.0 &&
+                _controller.offset != buttons.length * _buttonWidth) {
+              // 在最右端时，向左滑无效
+              // 向左滑
+              offset > -60.0 ? _filpToRight() : _filpToLeft();
+            }
           }
         },
         child: SingleChildScrollView(
