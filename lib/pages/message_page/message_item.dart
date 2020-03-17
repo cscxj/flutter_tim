@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tim/pages/chat_page.dart';
+import 'package:flutter_tim/utils/scroll_behaviors.dart';
 
 class MessageItem extends StatefulWidget {
   @override
@@ -35,7 +37,7 @@ class _MessageItemState extends State<MessageItem> {
   @override
   void initState() {
     super.initState();
-    _controller = ScrollController();
+    _controller = ScrollController()..addListener(() {});
     initUI();
   }
 
@@ -55,133 +57,129 @@ class _MessageItemState extends State<MessageItem> {
         duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
   }
 
-  double _tapDownPostion;
+  Offset _tapDownPostion;
   double _speed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Listener(
-        // onPointerDown: (e) {
-        //   _tapDownPostion = e.position.dx;
-        // },
-        // onPointerUp: (e) {
-        //   double offset = e.position.dx - _tapDownPostion;
-
-        //   if (offset > 0.0 && _controller.offset != 0.0) {
-        //     // 在最左端时，向右滑无效
-        //     // 向右滑
-        //     offset > 60.0 ? _filpToRight() : _filpToLeft();
-        //   } else if (offset < 0.0 &&
-        //       _controller.offset != buttons.length * _buttonWidth) {
-        //     // 在最右端时，向左滑无效
-        //     // 向左滑
-        //     offset > -60.0 ? _filpToRight() : _filpToLeft();
-        //   }
-        // },
         onPointerDown: (e) {
           _speed = .0;
-          _tapDownPostion = e.position.dx;
+          _tapDownPostion = e.position;
         },
         onPointerMove: (e) {
           _speed = e.delta.dx;
         },
         onPointerUp: (e) {
-          print(_speed);
-          double offset = e.position.dx - _tapDownPostion;
-          /**
-           * 速度较大时直接移动到对应端，速度较小时根据滑动的位移判断移动到哪边。
-           */
-          if (_speed > 3.0 && _controller.offset != 0.0) {
-            //
+          double offset = e.position.dx - _tapDownPostion.dx;
+          // 能向左滑的条件
+          bool canScrollToLeft =
+              _controller.offset != buttons.length * _buttonWidth &&
+                  _controller.offset > 0.0;
+          // 能向右滑的条件
+          bool canScrollToRight = _controller.offset != 0.0 &&
+              _controller.offset < buttons.length * _buttonWidth;
+          if (_speed > 3.0 && canScrollToRight) {
+            //速度较大的情况
             _filpToRight();
-          } else if (_speed < -3.0 &&
-              _controller.offset != buttons.length * _buttonWidth) {
+          } else if (_speed < -3.0 && canScrollToLeft) {
             _filpToLeft();
           } else {
-            if (offset > 0.0 && _controller.offset != 0.0) {
-              // 在最左端时，向右滑无效
-              // 向右滑
+            // 速度较小的情况
+            if (offset > 0.0 && canScrollToRight) {
               offset > 60.0 ? _filpToRight() : _filpToLeft();
-            } else if (offset < 0.0 &&
-                _controller.offset != buttons.length * _buttonWidth) {
-              // 在最右端时，向左滑无效
-              // 向左滑
+            } else if (offset < 0.0 && canScrollToLeft) {
               offset > -60.0 ? _filpToRight() : _filpToLeft();
             }
           }
         },
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          controller: _controller,
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                child: Row(
-                  children: <Widget>[
-                    // 头像
-                    ClipOval(
-                      child: Image.asset(
-                        'assets/touXiang.jpg',
-                        fit: BoxFit.cover,
-                        width: 50,
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  'Flutter技术交流群',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.normal),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+        child: ScrollConfiguration(
+            behavior: NoGlowScrollBehavior(),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _controller,
+              child: Row(
+                children: <Widget>[
+                  FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_){
+                          return ChatPage();
+                        }));
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        child: Row(
+                          children: <Widget>[
+                            // 头像
+                            ClipOval(
+                              child: Image.asset(
+                                'assets/touXiang.jpg',
+                                fit: BoxFit.cover,
+                                width: 50,
                               ),
-                              Text(
-                                '17:38',
-                                style: TextStyle(
-                                    color: Color(0xff666666),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal),
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  '吃了吗',
-                                  style: TextStyle(
-                                      color: Color(0xff666666),
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.normal),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          'Flutter技术交流群',
+                                          style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.normal),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Text(
+                                        '17:38',
+                                        style: TextStyle(
+                                            color: Color(0xff666666),
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.normal),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          '吃了吗',
+                                          style: TextStyle(
+                                              color: Color(0xff666666),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.normal),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Icon(Icons.remove_circle)
+                                    ],
+                                  )
+                                ],
                               ),
-                              Icon(Icons.remove_circle)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                            ),
+                          ],
+                        ),
+                      )),
+                  // 隐藏按钮
+                  ...buttons
+                ],
               ),
-              // 隐藏按钮
-              ...buttons
-            ],
-          ),
-        ),
+            )),
       ),
     );
   }

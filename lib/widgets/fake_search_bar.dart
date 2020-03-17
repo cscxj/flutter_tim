@@ -7,7 +7,7 @@ class FakeSearchBar extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       height: 30,
       decoration: BoxDecoration(
-        color: Color(0xffe6e6e6),
+        color: Color(0xfff7f8fa),
         borderRadius: BorderRadius.all(Radius.circular(2.0))
       ),
       child: Row(

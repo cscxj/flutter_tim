@@ -31,7 +31,7 @@ class _UserInfoPageState extends State<UserInfoPage>
   _initAnimation() {
     // 头部高度增加动画
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
     _animation = Tween(begin: 200.0, end: 300.0).animate(_animationController)
       ..addListener(() {
         setState(() {});
@@ -40,7 +40,7 @@ class _UserInfoPageState extends State<UserInfoPage>
 
     // 头部背景展开，内容上移，昵称下移动画
     _animationController2 =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     _animation2 = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: _animationController2, curve: Curves.easeInOutQuad))
       ..addListener(() {
@@ -50,14 +50,14 @@ class _UserInfoPageState extends State<UserInfoPage>
 
     // AppBar 的背景和标题渐变动画
     _animationController3 =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
     _animation3 = Tween(begin: .0, end: 1.0).animate(_animationController3)
       ..addListener(() {
         setState(() {});
       });
     // AppBar上的左右端文字颜色渐变
     _animationController4 =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
     _animation4 = ColorTween(begin: Colors.white, end: Colors.black)
         .animate(_animationController4)
           ..addListener(() {
