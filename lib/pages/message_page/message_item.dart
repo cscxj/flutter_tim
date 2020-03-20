@@ -105,7 +105,8 @@ class _MessageItemState extends State<MessageItem> {
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       padding: EdgeInsets.zero,
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_){
+                        Navigator.push(context,
+                            PageRouteBuilder(pageBuilder: (_, a, a1) {
                           return ChatPage();
                         }));
                       },

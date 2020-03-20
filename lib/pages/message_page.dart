@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,16 +70,22 @@ class _MessagePageState extends State<MessagePage> {
             }));
           },
           child: SvgPicture.asset(
-            'assets/svg/lianXiRen.svg',
+            'assets/svg/tim_contact.svg',
             color: Colors.white,
-            width: 20,
+            width: 40,
           ),
         ),
-        rightIcon: SvgPicture.asset(
-          'assets/svg/add.svg',
+        rightIcon: InkWell(
+          onTap: (){
+            // Navigator.push(context, CupertinoPageRoute(builder: (_){
+            //   return TestPage2();
+            // }));
+          },
+          child: SvgPicture.asset(
+          'assets/svg/tim_add.svg',
           color: Colors.white,
-          width: 20,
-        ),
+          width: 40,
+        ), )
       ),
       drawerDragStartBehavior: DragStartBehavior.down,
       drawerEdgeDragWidth: 300.0,
@@ -95,3 +102,4 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 }
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tim/pages/contacts_page.dart';
 import 'package:flutter_tim/pages/test.dart';
 import 'package:flutter_tim/pages/message_page.dart';
 import './work_page.dart';
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: IndexedStack(
         index: _currentPage,
-        children: <Widget>[MessagePage(), TestPage(), WorkPage()],
+        children: <Widget>[MessagePage(), ContactsPage(), WorkPage()],
       ),
       bottomNavigationBar: Wrap(
         children: <Widget>[

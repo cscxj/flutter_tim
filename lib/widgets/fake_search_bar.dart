@@ -4,8 +4,8 @@ class FakeSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      height: 30,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      height: 28.0,
       decoration: BoxDecoration(
         color: Color(0xfff7f8fa),
         borderRadius: BorderRadius.all(Radius.circular(2.0))

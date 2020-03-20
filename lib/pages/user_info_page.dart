@@ -191,7 +191,7 @@ class _UserInfoPageState extends State<UserInfoPage>
               child: Row(
                 children: <Widget>[
                   SvgPicture.asset(
-                    'assets/svg/arrow_left.svg',
+                    'assets/svg/tim_arrow_left.svg',
                     height: 20,
                     color: _animation4.value,
                   ),

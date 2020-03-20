@@ -51,11 +51,8 @@ class _WorkPageState extends State<WorkPage> {
             title: Text('办公'),
             centerTitle: true,
             actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: SvgPicture.asset('assets/svg/setting.svg',
-                    width: 20.0, color: Colors.white),
-              )
+              SvgPicture.asset('assets/svg/tim_setting.svg',
+                  width: 40.0, color: Colors.white),
             ],
           ),
           preferredSize: Size.fromHeight(48)),
