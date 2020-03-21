@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tim/pages/contacts_page.dart';
+import 'package:flutter_tim/pages/home_page.dart';
+import 'package:flutter_tim/pages/login_page.dart';
 import 'package:flutter_tim/pages/message_page/auto_app_bar.dart';
 import 'package:flutter_tim/pages/message_page/message_item.dart';
 import 'package:flutter_tim/widgets/fake_search_bar.dart';
@@ -60,33 +62,33 @@ class _MessagePageState extends State<MessagePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AutoAppBar(
-        controler: _appBarControler,
-        title: '消息',
-        leftIcon: InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return ContactsPage();
-            }));
-          },
-          child: SvgPicture.asset(
-            'assets/svg/tim_contact.svg',
-            color: Colors.white,
-            width: 40,
+          controler: _appBarControler,
+          title: '消息',
+          leftIcon: InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return ContactsPage();
+              }));
+            },
+            child: SvgPicture.asset(
+              'assets/svg/tim_contact.svg',
+              color: Colors.white,
+              width: 40,
+            ),
           ),
-        ),
-        rightIcon: InkWell(
-          onTap: (){
-            // Navigator.push(context, CupertinoPageRoute(builder: (_){
-            //   return TestPage2();
-            // }));
-          },
-          child: SvgPicture.asset(
-          'assets/svg/tim_add.svg',
-          color: Colors.white,
-          width: 40,
-        ), )
-      ),
+          rightIcon: InkWell(
+            onTap: () {
+              Navigator.push(context, CupertinoPageRoute(builder: (_) {
+                return LoginPage();
+              }));
+            },
+            child: SvgPicture.asset(
+              'assets/svg/tim_add.svg',
+              color: Colors.white,
+              width: 40,
+            ),
+          )),
       drawerDragStartBehavior: DragStartBehavior.down,
       drawerEdgeDragWidth: 300.0,
       body: ListView(
@@ -102,4 +104,3 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 }
-

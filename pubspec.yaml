@@ -23,6 +23,7 @@ dependencies:
   sticky_headers: ^0.1.8+1
   flutter_easyrefresh: ^2.1.0
   flutter_spinkit: "^4.1.2"
+  flutter_native_splash: ^0.1.9
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,6 +42,7 @@ flutter:
   assets:
     - assets/
     - assets/svg/
+    - assets/screen/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -77,3 +79,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  image: assets/screen/splash_screen.jpg
+  color: "ffffff"
+  fill: true
